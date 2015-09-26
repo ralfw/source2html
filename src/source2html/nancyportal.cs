@@ -20,6 +20,8 @@ namespace source2html
 			// usage: ...?codeurl=...&lexer=...&linenos=1&ashtml=1
 			Get ["/"] = x => {
 				var codeurl = Request.Query["codeurl"];
+				if (!codeurl.HasValue)
+					return "Usage: ...?codeurl=...&linenos=1&lexer=csharp";
 
 				var code = "";
 				using(var wc = new WebClient()) {
