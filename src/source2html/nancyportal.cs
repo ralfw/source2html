@@ -6,7 +6,7 @@ using Nancy.Responses;
 
 namespace source2html
 {
-	// ...?lexer=csharp&linenos=1&ashtml=1&codeurl=https://gist.githubusercontent.com/ralfw/42b0071e49ce12c9ecd4/raw/c07b073ceb9fbdac8f9904766e4d171b2a7ed8b4/01%2520program.cs
+	// https://source2html.apphb.com?lexer=csharp&linenos=1&ashtml=1&codeurl=https://gist.githubusercontent.com/ralfw/42b0071e49ce12c9ecd4/raw/c07b073ceb9fbdac8f9904766e4d171b2a7ed8b4/01%2520program.cs
 	// http://127.0.0.1:8080/?lexer=csharp&linenos=1&ashtml=1&codeurl=https://gist.githubusercontent.com/ralfw/42b0071e49ce12c9ecd4/raw/c07b073ceb9fbdac8f9904766e4d171b2a7ed8b4/01%2520program.cs
 
 	// http://hilite.me/api
@@ -40,6 +40,11 @@ namespace source2html
 				}
 
 				var htmlbytes = System.Text.Encoding.UTF8.GetBytes(html);
+
+//				if (ashtml.HasValue)
+//					return new HtmlResponse(contents: s => s.Write(htmlbytes, 0, htmlbytes.Length));
+//			    else
+//					return new TextResponse(html, encoding : System.Text.Encoding.UTF8);
 				return new Nancy.Response {
 					ContentType = ashtml.HasValue ? "text/html; charset=utf-8" : "text/plain; charset=utf-8",
 					Contents = s => s.Write(htmlbytes, 0, htmlbytes.Length)
