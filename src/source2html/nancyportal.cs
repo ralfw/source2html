@@ -26,7 +26,7 @@ namespace source2html
 				var code = "";
 				using(var wc = new WebClient()) {
 					code = wc.DownloadString(codeurl);
-					code = HttpUtility.UrlEncode(code);
+					//code = HttpUtility.UrlEncode(code);
 				}
 
 				var lexer = Request.Query["lexer"];
@@ -39,19 +39,14 @@ namespace source2html
 					html = wc.DownloadString(hiliteurl);
 				}
 
+				html = "<span>äöü<b>ÄÖÜ</b>ß§</span>";
+
 				var htmlbytes = System.Text.Encoding.UTF8.GetBytes(html);
 
-//				if (ashtml.HasValue)
-//					return new HtmlResponse(contents: s => s.Write(htmlbytes, 0, htmlbytes.Length));
-//			    else
-//					return new TextResponse(html, encoding : System.Text.Encoding.UTF8);
-//				return new Nancy.Response {
-//					ContentType = ashtml.HasValue ? "text/html; charset=utf-8" : "text/plain; charset=utf-8",
-//					Contents = s => s.Write(htmlbytes, 0, htmlbytes.Length)
-//				};
-				var resp = (Nancy.Response)html;
-				resp.ContentType = "text/html; charset=utf-8";
-				return resp;
+				return new Nancy.Response {
+					ContentType = ashtml.HasValue ? "text/html; charset=utf-8" : "text/plain; charset=utf-8",
+					Contents = s => s.Write(htmlbytes, 0, htmlbytes.Length)
+				};
 			};
 		}
 	}
