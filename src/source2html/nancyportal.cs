@@ -36,10 +36,9 @@ namespace source2html
 				var hiliteurl = string.Format("http://hilite.me/api?code={0}&lexer={1}&linenos={2}", code, lexer, linenos);
 				var html = "";
 				using(var wc = new WebClient()) {
+					wc.Encoding = System.Text.Encoding.UTF8;
 					html = wc.DownloadString(hiliteurl);
 				}
-
-				html = "<span>äöü<b>ÄÖÜ</b>ß§</span>";
 
 				var htmlbytes = System.Text.Encoding.UTF8.GetBytes(html);
 
