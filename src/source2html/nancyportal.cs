@@ -37,15 +37,12 @@ namespace source2html
 				var html = "";
 				using(var wc = new WebClient()) {
 					wc.Encoding = System.Text.Encoding.UTF8;
-					html = wc.DownloadString(hiliteurl);
+					html = wc.DownloadString(hiliteurl); // in html ist ein umlaut korrekt enthalten
 				}
 
 
-				var r = (Nancy.Response)html;
-				r.ContentType = "text/html; charset=utf-8";
-				return r;
-
-
+				// ab hier passiert etwas, so dass umlaute u.u. nicht korrekt beim empfänger ankommen :-(
+				// lokal funktioniert es zwar, aber wenn hosted by appharbor, dann irgendwie nicht.
 				var htmlbytes = System.Text.Encoding.UTF8.GetBytes(html);
 
 				return new Nancy.Response {
