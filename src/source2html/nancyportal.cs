@@ -26,7 +26,7 @@ namespace source2html
 				var code = "";
 				using(var wc = new WebClient()) {
 					code = wc.DownloadString(codeurl);
-					//code = HttpUtility.UrlEncode(code);
+					code = HttpUtility.UrlEncode(code);
 				}
 
 				var lexer = Request.Query["lexer"];
@@ -39,6 +39,12 @@ namespace source2html
 					wc.Encoding = System.Text.Encoding.UTF8;
 					html = wc.DownloadString(hiliteurl);
 				}
+
+
+				var r = (Nancy.Response)html;
+				r.ContentType = "text/html; charset=utf-8";
+				return r;
+
 
 				var htmlbytes = System.Text.Encoding.UTF8.GetBytes(html);
 
